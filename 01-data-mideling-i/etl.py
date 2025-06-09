@@ -69,6 +69,18 @@ def process(cur, conn, filepath):
 
                 # Insert data into tables here
                 insert_statement = f"""
+                    INSERT INTO repositorise (
+                        id,
+                        name,
+                        actor_id
+                        ) VALUES ({each["repo"]["id"]},'{each["repo"]["name"]}','{each["actor"]["id"]}')
+                        ON CONFLICT (id) DO NOTHING
+                """
+                # print(insert_statement)
+                cur.execute(insert_statement)
+
+                # Insert data into tables here
+                insert_statement = f"""
                     INSERT INTO events (
                         id,
                         type,
